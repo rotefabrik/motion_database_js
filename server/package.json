@@ -1,0 +1,24 @@
+{
+  "name": "motion-database_frontendserver",
+  "version": "0.1.0",
+  "description": "frontend server for Motion Database",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "material-ui": "^0.20.0",
+    "mustache-express": "^1.2.6",
+    "react": "^16.3.2",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.3.2"
+  },
+  "scripts": {
+    "start": "babel-node server.js",
+    "watch": "babel-watch -L server.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-watch": "^2.0.7"
+  }
+}

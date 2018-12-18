@@ -1,0 +1,23 @@
+.md-search-bar {
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+
+  .md-search-bar-input {
+    input {
+      border: 0;
+      color: #000;
+      font-size: 2em;
+      padding: 0.25em;
+      width: 100%;
+    }
+  }
+
+  .md-search-bar-control {
+    background-color: #f00;
+    color: #fff;
+    button {
+      width: 100%;
+    }
+  }
+}
