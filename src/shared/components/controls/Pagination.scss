@@ -1,0 +1,16 @@
+.md-pagination {
+  div {
+    float: left;
+    margin-right: 1em;
+  }
+
+  span {
+    float: left;
+    margin-right: 1em;
+
+    &.button {
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}

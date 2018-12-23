@@ -1,4 +1,4 @@
 {
   "presets": ["es2015", "react", "stage-0"],
-  "plugins": ["syntax-dynamic-import", "dynamic-import-node", "css-modules-transform", "react-loadable/babel"]
+  "plugins": ["syntax-dynamic-import", "dynamic-import-node", "css-modules-transform", "react-loadable/babel", "transform-object-rest-spread"]
 }

@@ -14,18 +14,16 @@
               crossorigin="anonymous">
         <link rel="stylesheet" href="/static/shared.css?cache_breaker={{{seed}}}">
         {{{loadedStyles}}}
+        <script>
+            var __STORE__ = {{{store}}};
+        </script>
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=String.prototype.startsWith,Array.from,Array.prototype.fill,Array.prototype.keys,Array.prototype.findIndex,Number.isInteger&flags=gated"></script>
         <script src="/static/shared.js?cache_breaker={{{seed}}}"></script>
         {{{loadedScripts}}}
     </head>
 
     <body>
-        <script>
-            var __STORE__ = {{{store}}};
-        </script>
-
         <div id="root">{{{body}}}</div>
-
         <script>window.main();</script>
     </body>
 </html>

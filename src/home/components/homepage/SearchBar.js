@@ -23,7 +23,6 @@ export default class SearchBar extends React.Component {
                                 placeholder="Suchbegriff hier hinein!!!" />
                         </td>
                         <td className="md-search-bar-control">
-                            <button>Submit</button>
                         </td>
                     </tr>
                 </tbody>

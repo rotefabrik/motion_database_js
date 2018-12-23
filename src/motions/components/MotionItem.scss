@@ -1,0 +1,85 @@
+li.md-motion-item {
+  border-bottom: 1px solid #CAD8D1;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+
+  table {
+    box-shadow: black;
+    width: 100%;
+
+    td {
+      //border: 2px solid grey;
+      padding: 8px;
+
+      &.md-sidebar {
+        width: 2px;
+
+        &.not_voted {
+          background-color: #CAD8D1;
+        }
+        &.accepted {
+          background-color: #95B686;
+        }
+        &.referred {
+          background-color: #DEDC8C;
+        }
+        &.dismissed {
+          background-color: #E7A458;
+        }
+        &.rejected {
+          background-color: #EA6968;
+        }
+      }
+
+      &.md-body {
+        h1.md-title {
+          clear: both;
+          float: left;
+          font-size: 1em;
+          margin: 0;
+          padding: 0;
+        }
+
+        .md-full-text {
+          clear: both;
+          display: none;
+          float: left;
+
+          &.open {
+            border-top: 1px solid grey;
+            display: block;
+            margin-top: 1em;
+            padding-top: 1em;
+          }
+        }
+
+        ul.md-context {
+          clear: both;
+          color: grey;
+          float: left;
+          font-size: .85em;
+          list-style-type: none;
+          padding: 0;
+          padding-bottom: .25em;
+
+          li {
+            float: left;
+            margin-right: .5em;
+
+            &.md-submitter {
+            }
+
+            &.md-convention {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      &.md-toggle {
+        vertical-align: top;
+        text-align: right;
+      }
+    }
+  }
+}

@@ -9,7 +9,6 @@ import request from 'request-promise';
 export default class API {
 
     constructor() {
-        console.log(config);
         this.apiEndpoint = config.get('API_ENDPOINT', '');
     }
 

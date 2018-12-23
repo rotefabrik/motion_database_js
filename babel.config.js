@@ -13,7 +13,8 @@ module.exports = function (api) {
         'syntax-dynamic-import',
         'transform-class-properties',
         'transform-object-assign',
-        'react-loadable/babel'
+        'react-loadable/babel',
+        'transform-object-rest-spread'
     ];
 
     return {

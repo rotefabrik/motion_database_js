@@ -5,6 +5,7 @@ import {createLogger} from 'redux-logger'
 
 import {motionsReducer} from '../../motions/reducers/motionsReducer';
 import {configReducer} from "../reducers/configReducer";
+import {filtersReducer} from "../../home/reducers/filters";
 
 
 const logger = createLogger();
@@ -13,6 +14,7 @@ const logger = createLogger();
 export const reducers = combineReducers({
     config: configReducer,
     motions: motionsReducer,
+    filters: filtersReducer,
 
     form: formReducer
 });

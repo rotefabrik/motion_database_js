@@ -3,6 +3,10 @@ import _ from 'lodash';
 import React from 'react';
 import MotionItem from "./MotionItem";
 
+if (process.env.BROWSER) {
+    require('./MotionsList.scss');
+}
+
 
 export default class MotionsList extends React.Component {
     render() {
