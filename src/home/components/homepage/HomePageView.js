@@ -4,7 +4,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Col, Grid, Row} from "react-bootstrap";
 
-import {changeFilterValue} from "../../actions/filters";
+import {changeFilterValue, resetFilters} from "../../actions/filters";
 import {searchMotions} from "../../../motions/actions/motions";
 
 import {Page} from "../../../shared/components/layout/page/Page";
@@ -33,9 +33,16 @@ class HomePageView extends React.Component {
             const query = this.buildQuery();
             props.searchMotions(query, DEFAULT_START_PAGE, this.state.pageItems);
         }, 1000);
+
+        if (_.isEmpty(props.filters)) {
+            props.resetFilters();
+        }
     }
 
     componentDidMount() {
+        if (_.isEmpty(this.props.filters)) {
+            this.props.resetFilters();
+        }
         const query = this.buildQuery();
         this.props.searchMotions(query, this.state.page, this.state.pageItems);
     }
@@ -118,6 +125,7 @@ const mapStateToProps = (state, existingProps = {}) => {
 
 const mapDispatchToProps = (dispatch, existingProps = {}) => {
     return Object.assign({}, existingProps, {
+        resetFilters: () => dispatch(resetFilters()),
         changeFilterValue: (section, name, value) => dispatch(changeFilterValue(section, name, value)),
         searchMotions: (query, page, pageItems) => dispatch(searchMotions(query, page, pageItems))
     });

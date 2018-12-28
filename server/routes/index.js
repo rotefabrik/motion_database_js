@@ -1,10 +1,13 @@
 import { each } from 'lodash';
 import config from 'react-global-configuration';
-import ReactView from "./shared";
+
+import {HomeView} from "./home";
+import {MotionView} from "./motion";
 
 
 const ROUTES = {
-    '/': {view: ReactView}
+    '/': {view: HomeView},
+    '/antrag/:id': {view: MotionView}
 };
 
 

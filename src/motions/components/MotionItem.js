@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {each} from "lodash";
+import { Link } from 'react-router-dom';
 import i18next from "i18next";
 
 if (process.env.BROWSER) {
@@ -30,6 +31,8 @@ export default class MotionItem extends React.Component {
 
         const toggleText = i18next.t(this.state.open ? 'contract' : 'expand');
 
+        const singleMotionLink = '/antrag/' + this.props.id;
+
         return (
             <li className="md-motion-item">
                 <table>
@@ -44,7 +47,7 @@ export default class MotionItem extends React.Component {
                                 </ul>
 
                                 <h1 className="md-title">
-                                    <a href="">{this.props.title}</a>
+                                    <Link to={singleMotionLink}>{this.props.title}</Link>
                                 </h1>
 
                                 <div className={textBodyKlasses}>

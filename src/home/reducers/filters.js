@@ -1,4 +1,5 @@
-import {CHANGE_FILTER_VALUE} from "../actions/filters";
+import {CHANGE_FILTER_VALUE, RESET_FILTERS} from "../actions/filters";
+import {DEFAULT_FILTERS} from "../components/homepage/filterConstants";
 
 
 export function filtersReducer(state={}, action) {
@@ -10,6 +11,8 @@ export function filtersReducer(state={}, action) {
                 submitters: submittersReducer(state.submitters, action),
                 status: statusReducer(state.status, action)
             });
+        case RESET_FILTERS + '_SUCCEEDED':
+            return Object.assign({}, DEFAULT_FILTERS);
         default:
             return state;
     }

@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import {reducer as formReducer} from 'redux-form';
 import {createLogger} from 'redux-logger'
 
+import {motionReducer} from "../../motions/reducers/motionReducer";
 import {motionsReducer} from '../../motions/reducers/motionsReducer';
 import {configReducer} from "../reducers/configReducer";
 import {filtersReducer} from "../../home/reducers/filters";
@@ -13,8 +14,10 @@ const logger = createLogger();
 
 export const reducers = combineReducers({
     config: configReducer,
-    motions: motionsReducer,
     filters: filtersReducer,
+
+    motion: motionReducer,
+    motions: motionsReducer,
 
     form: formReducer
 });

@@ -9,3 +9,12 @@ export const changeFilterValue = (section, name, value) => {
         dispatch(action());
     };
 };
+
+
+export const RESET_FILTERS = "RESET_FILTERS";
+export const resetFilters = () => {
+    return (dispatch) => {
+        let action = createActionThunk(RESET_FILTERS, () => null);
+        dispatch(action());
+    };
+};

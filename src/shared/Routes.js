@@ -18,6 +18,13 @@ const HomeComponent =  Loadable({
 });
 
 
+const MotionComponent =  Loadable({
+    loader: () => import(/* webpackChunkName: "motion" */ '../motions/components/motion'),
+    loading: LoadingComponent,
+});
+
+
+
 export default class Routes extends React.Component {
     render() {
         return (
@@ -25,7 +32,11 @@ export default class Routes extends React.Component {
                 <Route
                     path="/"
                     exact={true}
-                    component={() => <HomeComponent />} />
+                    component={(props) => <HomeComponent {...props} />} />
+                <Route
+                    path="/antrag/:id"
+                    exact={true}
+                    component={(props) => <MotionComponent {...props} />} />
             </Switch>
         );
     }

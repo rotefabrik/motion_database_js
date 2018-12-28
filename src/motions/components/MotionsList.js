@@ -22,7 +22,7 @@ export default class MotionsList extends React.Component {
         let motions = [];
         if (this.props.motions && this.props.motions.items) {
             _.each(this.props.motions.items, (item, index) => {
-                let motion = (<MotionItem key={index} {...item} />);
+                let motion = (<MotionItem key={index} id={item.id} {...item} />);
                 motions.push(motion);
             });
         }

@@ -3,7 +3,7 @@ import API from "../../shared/api/api";
 
 
 export const URL_SUBMITTERS = '/submitters/';
-export const FETCH_SUBMITTERS = 'SEARCH_MOTIONS';
+export const FETCH_SUBMITTERS = 'RETRIEVE_MOTIONS';
 export const fetchSubmitters = (query, page, pageItems) => {
     return (dispatch) => {
         let action = createActionThunk(FETCH_SUBMITTERS, () => new API().get(
