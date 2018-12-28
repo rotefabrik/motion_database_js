@@ -1,5 +1,6 @@
 import {CHANGE_FILTER_VALUE, RESET_FILTERS} from "../actions/filters";
 import {DEFAULT_FILTERS} from "../components/homepage/filterConstants";
+import {each} from "lodash";
 
 
 export function filtersReducer(state={}, action) {
@@ -7,11 +8,11 @@ export function filtersReducer(state={}, action) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
             return Object.assign({}, state, {
                 body: getBody(action, state),
-                convention: conventionReducer(state.convention, action),
-                section: sectionReducer(state.section, action),
-                submitters: submittersReducer(state.submitters, action),
-                status: statusReducer(state.status, action),
-                referred: referredReducer(state.referred, action)
+                convention: changeFilterValueReducer(state.convention, action, 'convention'),
+                section: changeFilterValueReducer(state.section, action, 'section'),
+                submitters: changeFilterValueReducer(state.submitters, action, 'submitters'),
+                status: changeFilterValueReducer(state.status, action, 'status'),
+                referred: changeFilterValueReducer(state.referred, action, 'referred')
             });
         case RESET_FILTERS + '_SUCCEEDED':
             return Object.assign({}, DEFAULT_FILTERS);
@@ -29,78 +30,17 @@ function getBody(action, state) {
 }
 
 
-export function sectionReducer(state={}, action) {
+function changeFilterValueReducer(state, action, label) {
     switch (action.type) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
-            const {section, name, value} = action.payload;
-            if (section === 'section') {
-                const updatedValue = {};
-                updatedValue[name] = value;
-                return Object.assign({}, state, updatedValue);
-            }
-            return state;
-        default:
-            return state;
-    }
-}
-
-
-export function conventionReducer(state={}, action) {
-    switch (action.type) {
-        case CHANGE_FILTER_VALUE + '_SUCCEEDED':
-            const {section, name, value} = action.payload;
-            if (section === 'convention') {
-                const updatedValue = {};
-                updatedValue[name] = value;
-                return Object.assign({}, state, updatedValue);
-            }
-            return state;
-        default:
-            return state;
-    }
-}
-
-
-export function submittersReducer(state={}, action) {
-    switch (action.type) {
-        case CHANGE_FILTER_VALUE + '_SUCCEEDED':
-            const {section, name, value} = action.payload;
-            if (section === 'submitters') {
-                const updatedValue = {};
-                updatedValue[name] = value;
-                return Object.assign({}, state, updatedValue);
-            }
-            return state;
-        default:
-            return state;
-    }
-}
-
-
-export function statusReducer(state={}, action) {
-    switch (action.type) {
-        case CHANGE_FILTER_VALUE + '_SUCCEEDED':
-            const {section, name, value} = action.payload;
-            if (section === 'status') {
-                const updatedValue = {};
-                updatedValue[name] = value;
-                return Object.assign({}, state, updatedValue);
-            }
-            return state;
-        default:
-            return state;
-    }
-}
-
-
-export function referredReducer(state={}, action) {
-    switch (action.type) {
-        case CHANGE_FILTER_VALUE + '_SUCCEEDED':
-            const {section, name, value} = action.payload;
-            if (section === 'referred') {
-                const updatedValue = {};
-                updatedValue[name] = value;
-                return Object.assign({}, state, updatedValue);
+            const {section, name} = action.payload;
+            if (section === label) {
+                const newState = Object.assign({}, state);
+                each(newState, (value, key) => {
+                    console.log(value, key, name, key === name);
+                    newState[key] = key === name;
+                });
+                return newState;
             }
             return state;
         default:

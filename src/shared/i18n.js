@@ -27,6 +27,8 @@ i18n.use(LanguageDetector).init({
 
                 "search-prompt": "Antragstexte durchsuchen",
 
+                "select-option-any": "alle",
+
                 "homepage-toggle-filters": "Suchfilter anzeigen",
                 "homepage-toggle-results": "Suchresultate anzeigen"
             }

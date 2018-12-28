@@ -19,8 +19,23 @@ export default class Footer extends React.Component {
                     <Row>
                         <Col xs={12} md={1} lg={1} />
                         <Col xs={12} md={10} lg={6}>
-                            <div className="md-page-footer-content">
-                                <a href="mailto:fkauder@gmail.com">Friedrich Kauder</a> / 2018
+                            <div className="md-page-footer-content-container">
+                                <ul className="md-page-footer-content">
+                                    <li>Friedrich Kauder</li>
+                                    <li>
+                                        <a href="https://twitter.com/FJKauder" target="_blank">
+                                            Kontakt <i className="fab fa-twitter"/>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://github.com/rotefabrik" target="_blank">
+                                            Quellcode <i className="fab fa-github"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        2018
+                                    </li>
+                                </ul>
                             </div>
                         </Col>
                         <Col xs={12} md={1} lg={5} />

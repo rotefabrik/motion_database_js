@@ -2,13 +2,32 @@
 
 
 .md-page-footer {
-  .md-page-footer-content {
+  .md-page-footer-content-container {
     border-top: 1px solid $color-neutral;
     clear: both;
     float: left;
     padding-bottom: .5em;
     padding-top: .5em;
-    text-align: right;
     width: 100%;
+
+    .md-page-footer-content {
+      float: right;
+      list-style: none;
+      padding: 0;
+
+      li {
+        float: left;
+
+        &:after {
+          content: '/';
+          padding-left: .5em;
+          padding-right: .5em;
+        }
+
+        &:last-child:after {
+          content: '';
+        }
+      }
+    }
   }
 }
