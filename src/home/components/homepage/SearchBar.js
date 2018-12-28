@@ -24,8 +24,6 @@ export default class SearchBar extends React.Component {
                                 onChange={this.onChange.bind(this)}
                                 placeholder={i18next.t('search-prompt')} />
                         </td>
-                        <td className="md-search-bar-control">
-                        </td>
                     </tr>
                 </tbody>
             </table>

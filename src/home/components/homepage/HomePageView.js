@@ -3,6 +3,7 @@ import _ from 'lodash';
 import React from 'react';
 import {connect} from "react-redux";
 import {Col, Grid, Row} from "react-bootstrap";
+import classNames from 'classnames';
 
 import {changeFilterValue, resetFilters} from "../../actions/filters";
 import {searchMotions} from "../../../motions/actions/motions";
@@ -12,9 +13,46 @@ import SearchBar from "./SearchBar";
 import MotionsList from "../../../motions/components/MotionsList";
 import Pagination from "../../../shared/components/controls/Pagination";
 import MotionFilterForm from "./MotionFilterForm";
+import i18next from "i18next";
+
+if (process.env.BROWSER) {
+    require('./HomePageView.scss');
+}
 
 const DEFAULT_START_PAGE = 1;
 const DEFAULT_PAGE_ITEMS = 20;
+
+
+class FilterResultToggle extends React.Component {
+    render() {
+        const filters = this.buildLabel('filters');
+        const results = this.buildLabel('results');
+        return (
+            <div className="md-filter-result-toggle">
+                {filters}
+                <span className="md-divider">/</span>
+                {results}
+            </div>
+        );
+    }
+
+    buildLabel(label) {
+        const isActive =  this.props.currentValue === label;
+        const labelKlassOptions = {'md-label': true};
+        labelKlassOptions[label] = true;
+        labelKlassOptions['active'] = isActive;
+
+        const Klass = isActive ? 'span' : 'a';
+        const labelKlasses = classNames(labelKlassOptions);
+
+        return (
+            <Klass className={labelKlasses}
+                  onClick={() => {this.props.onClick(label)}}>
+                {i18next.t('homepage-toggle-' + label)}
+            </Klass>
+        );
+    }
+}
 
 
 class HomePageView extends React.Component {
@@ -23,7 +61,8 @@ class HomePageView extends React.Component {
 
         this.state = {
             page: DEFAULT_START_PAGE,
-            pageItems: DEFAULT_PAGE_ITEMS
+            pageItems: DEFAULT_PAGE_ITEMS,
+            view: 'results'
         };
 
         const self = this;
@@ -80,9 +119,19 @@ class HomePageView extends React.Component {
         return filterQuery;
     }
 
+    changeMobileView(newView) {
+        this.setState({view: newView});
+    }
+
     render() {
+        const motionFilterForm = this.getMotionFilterForm();
+        const resultsList = this.getResultsList();
+
+        const mobileMainContent = this.state.view === 'results' ? resultsList : motionFilterForm;
+
         return (
             <Page>
+
                 <Grid fluid={true}>
 
                     <Row>
@@ -94,25 +143,53 @@ class HomePageView extends React.Component {
                     </Row>
 
                     <Row>
+                        <Col mdHidden={true} lgHidden={true} xs={12}>
+                            <FilterResultToggle
+                                currentValue={this.state.view}
+                                onClick={this.changeMobileView.bind(this)} />
+                        </Col>
+                    </Row>
+
+                    <Row>
+                         <Col mdHidden={true} lgHidden={true} xs={12}>
+                            {mobileMainContent}
+                         </Col>
+                    </Row>
+
+                    <Row>
                         <Col xs={12} sm={12} md={1} lg={1} />
                         <Col xsHidden={true} smHidden={true} md={2} lg={2}>
-                            <MotionFilterForm
-                                filters={this.props.filters}
-                                onFilterChange={this.props.changeFilterValue} />
+                            {motionFilterForm}
                         </Col>
-                        <Col xs={12} md={6} lg={4}>
-                            <MotionsList motions={this.props.motions} />
-                            <Pagination
-                                page={this.state.page}
-                                pageItems={this.state.pageItems}
-                                total={this.props.motions ? this.props.motions.total : 0}
-                                onPageChange={this.onPageChange.bind(this)}/>
+                        <Col xsHidden={true} smHidden={true} md={6} lg={4}>
+                            {resultsList}
                         </Col>
-                        <Col xs={12} md={1} lg={5} />
+                        <Col xs={12} md={1} lg={5} mdHidden={true} lgHidden={true} />
                     </Row>
 
                 </Grid>
             </Page>
+        );
+    }
+
+    getMotionFilterForm() {
+        return (
+            <MotionFilterForm
+                filters={this.props.filters}
+                onFilterChange={this.props.changeFilterValue} />
+        );
+    }
+
+    getResultsList() {
+        return (
+            <React.Fragment>
+                <MotionsList motions={this.props.motions} />
+                <Pagination
+                    page={this.state.page}
+                    pageItems={this.state.pageItems}
+                    total={this.props.motions ? this.props.motions.total : 0}
+                    onPageChange={this.onPageChange.bind(this)}/>
+            </React.Fragment>
         );
     }
 }

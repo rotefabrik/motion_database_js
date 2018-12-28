@@ -25,7 +25,10 @@ i18n.use(LanguageDetector).init({
 
                 "disclaimer-text": "Diese Webseite ist kein offizielles Angebot der SPD-Berlin, dient nur zu Testzwecken und erhebt keinen Anspruch auf Richtigkeit oder Vollständigkeit der dargestellten Daten.",
 
-                "search-prompt": "Antragstexte durchsuchen"
+                "search-prompt": "Antragstexte durchsuchen",
+
+                "homepage-toggle-filters": "Suchfilter anzeigen",
+                "homepage-toggle-results": "Suchresultate anzeigen"
             }
         }
     },
