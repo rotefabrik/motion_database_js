@@ -116,12 +116,15 @@ export default class MotionFilterForm extends React.Component {
         const sections = [];
 
         each(this.props.filters, (fieldOptions, section) => {
-            sections.push(
-                <MotionFilterFormSection
-                    label={section}
-                    fields={fieldOptions}
-                    onFilterChange={this.props.onFilterChange} />
-            );
+            if (section !== 'body') {
+                sections.push(
+                    <MotionFilterFormSection
+                        key={section}
+                        label={section}
+                        fields={fieldOptions}
+                        onFilterChange={this.props.onFilterChange}/>
+                );
+            }
         });
 
         return sections;

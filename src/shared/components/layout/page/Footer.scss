@@ -1,0 +1,14 @@
+@import "../../../styles/colors";
+
+
+.md-page-footer {
+  .md-page-footer-content {
+    border-top: 1px solid $color-neutral;
+    clear: both;
+    float: left;
+    padding-bottom: .5em;
+    padding-top: .5em;
+    text-align: right;
+    width: 100%;
+  }
+}

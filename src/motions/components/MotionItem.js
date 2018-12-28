@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import {each} from "lodash";
+import {each, isEmpty} from "lodash";
 import { Link } from 'react-router-dom';
 import i18next from "i18next";
 
@@ -29,6 +29,10 @@ export default class MotionItem extends React.Component {
 
         const convention = this.buildConvention();
 
+        const section = this.buildSection();
+
+        const referred = this.buildReferred();
+
         const toggleText = i18next.t(this.state.open ? 'contract' : 'expand');
 
         const singleMotionLink = '/antrag/' + this.props.id;
@@ -43,12 +47,15 @@ export default class MotionItem extends React.Component {
                             <td className="md-body">
                                 <ul className="md-context">
                                     {convention}
+                                    {section}
                                     {submitters}
                                 </ul>
 
                                 <h1 className="md-title">
                                     <Link to={singleMotionLink}>{this.props.title}</Link>
                                 </h1>
+
+                                {referred}
 
                                 <div className={textBodyKlasses}>
                                     <div dangerouslySetInnerHTML={{__html: this.props.body}} />
@@ -73,7 +80,8 @@ export default class MotionItem extends React.Component {
         const submitters = [];
         if (this.props.submitters) {
             each(this.props.submitters, (submitterInfo, index) => {
-                let submitter = (<li className="md-submitter">{submitterInfo.name}</li>);
+                let submitter = (<li key={index}
+                                     className="md-submitter">{submitterInfo.name}</li>);
                 submitters.push(submitter);
             });
         }
@@ -85,7 +93,45 @@ export default class MotionItem extends React.Component {
             return null;
         }
         return (
-            <li className="md-convention">{this.props.convention.label}</li>
+            <li key="convention" className="md-convention">{this.props.convention.label}</li>
+        );
+    }
+
+    buildSection() {
+        if (!this.props.section) {
+            return null;
+        }
+        return (
+            <li key="section" className="md-section">{this.props.section.name}</li>
+        );
+    }
+
+    buildReferred() {
+        if (isEmpty(this.props.referrals)) {
+            return null;
+        }
+        const referrals = [];
+        each(this.props.referrals, (item, index) => {
+            referrals.push(
+                <li key={index}
+                    className="md-referral-item">
+                    {item.name}
+                </li>
+            );
+        });
+        return (
+            <table className="md-referrals">
+                <tbody>
+                    <tr>
+                        <td className="md-referral-icon">⤷</td>
+                        <td>
+                            <ul className="md-referral-list">
+                                {referrals}
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         );
     }
 }

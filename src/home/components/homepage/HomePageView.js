@@ -23,15 +23,13 @@ class HomePageView extends React.Component {
 
         this.state = {
             page: DEFAULT_START_PAGE,
-            pageItems: DEFAULT_PAGE_ITEMS,
-            searchTerm: ''
+            pageItems: DEFAULT_PAGE_ITEMS
         };
 
         const self = this;
         this.onSearchChange = _.debounce((value) => {
-            self.setState({searchTerm: value, page: 1});
-            const query = this.buildQuery();
-            props.searchMotions(query, DEFAULT_START_PAGE, this.state.pageItems);
+            self.setState({page: 1});
+            this.props.changeFilterValue('body', value);
         }, 1000);
 
         if (_.isEmpty(props.filters)) {
@@ -68,37 +66,41 @@ class HomePageView extends React.Component {
     buildQuery() {
         const filterQuery = {};
         _.each(this.props.filters, (sectionOptions, sectionName) => {
-            filterQuery[sectionName] = [];
-            _.each(sectionOptions, (checked, optionName) => {
-                if (checked) {
-                    filterQuery[sectionName].push(optionName);
-                }
-            });
+            if (sectionName === 'body') {
+                filterQuery[sectionName] = sectionOptions;
+            } else {
+                filterQuery[sectionName] = [];
+                _.each(sectionOptions, (checked, optionName) => {
+                    if (checked) {
+                        filterQuery[sectionName].push(optionName);
+                    }
+                });
+            }
         });
-        return Object.assign({}, {body: this.state.searchTerm}, filterQuery);
+        return filterQuery;
     }
 
     render() {
         return (
             <Page>
                 <Grid fluid={true}>
-                    <Row>
-                        <Col xs={12} md={1} lg={3} />
-                        <Col xs={12} md={10} lg={6}>
-                            <SearchBar
-                                value={this.state.searchTerm}
-                                onChange={this.onSearchChange.bind(this)}/>
-                        </Col>
-                        <Col xs={12} md={1} lg={3} />
-                    </Row>
+
                     <Row>
                         <Col xs={12} md={1} lg={1} />
-                        <Col xsHidden={true} md={2} lg={2}>
+                        <Col xs={12} md={10} lg={6}>
+                            <SearchBar onChange={this.onSearchChange.bind(this)} />
+                        </Col>
+                        <Col xs={12} md={1} lg={5} />
+                    </Row>
+
+                    <Row>
+                        <Col xs={12} sm={12} md={1} lg={1} />
+                        <Col xsHidden={true} smHidden={true} md={2} lg={2}>
                             <MotionFilterForm
                                 filters={this.props.filters}
                                 onFilterChange={this.props.changeFilterValue} />
                         </Col>
-                        <Col md={6} lg={4}>
+                        <Col xs={12} md={6} lg={4}>
                             <MotionsList motions={this.props.motions} />
                             <Pagination
                                 page={this.state.page}
@@ -106,8 +108,9 @@ class HomePageView extends React.Component {
                                 total={this.props.motions ? this.props.motions.total : 0}
                                 onPageChange={this.onPageChange.bind(this)}/>
                         </Col>
-                        <Col xs={12} md={1} lg={1} />
+                        <Col xs={12} md={1} lg={5} />
                     </Row>
+
                 </Grid>
             </Page>
         );

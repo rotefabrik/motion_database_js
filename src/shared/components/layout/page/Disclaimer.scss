@@ -1,0 +1,13 @@
+@import "../../../styles/colors";
+
+
+.md-page-disclaimer {
+  background-color: $color-rejected;
+  clear: both;
+  color: white;
+  float: left;
+  font-size: 0.85em;
+  padding: 0.25em;
+  text-align: center;
+  width: 100%;
+}

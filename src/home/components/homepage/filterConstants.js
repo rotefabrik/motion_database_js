@@ -60,5 +60,13 @@ export const DEFAULT_FILTERS = {
         'not_voted': false,
         'dismissed': false,
         'referred': false
+    },
+    referred: {
+        'AH Fraktion': false,
+        'Senat': false,
+        'Landesvorstand': false,
+        'Landesgruppe': false,
+        'Parteivorstand': false,
+        'BT-Fraktion': false
     }
 };

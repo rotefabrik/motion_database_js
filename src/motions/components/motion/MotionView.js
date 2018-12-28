@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Col, Grid, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import classNames from 'classnames';
 
 import {Page} from "../../../shared/components/layout/page/Page";
 import {retrieveMotion} from "../../actions/motions";
@@ -17,11 +18,11 @@ class MotionSection extends React.Component {
     render() {
         return (
             <Row>
-                <Col xs={12} md={1} lg={3} />
+                <Col xs={12} md={1} lg={1} />
                 <Col xs={12} md={1} lg={6}>
                     {this.props.children}
                 </Col>
-                <Col xs={12} md={1} lg={3} />
+                <Col xs={12} md={1} lg={5} />
             </Row>
         );
     }
@@ -66,6 +67,10 @@ class MotionMeta extends React.Component {
 
         const submitters = this.buildSubmitters();
 
+        const statusKlass = this.buildStatusKlass(status);
+
+        const referrals = this.buildReferrals();
+
         return (
             <MotionSection>
                 <div className="md-motion-meta">
@@ -84,9 +89,10 @@ class MotionMeta extends React.Component {
                                 <td>{submitters}</td>
                             </tr>
                             <tr>
-                                <th>Status</th>
+                                <th className={statusKlass}>Status</th>
                                 <td>{i18next.t(status)}</td>
                             </tr>
+                            {referrals}
                         </tbody>
                     </table>
                 </div>
@@ -103,6 +109,38 @@ class MotionMeta extends React.Component {
             return submitterParts.join(', ');
         }
         return "keine bekannt";
+    }
+
+    buildStatusKlass(status) {
+        const klassOptions = {'md-status': true};
+        klassOptions[status] = true;
+        return classNames(klassOptions);
+    }
+
+    buildReferrals() {
+        if (!isEmpty(this.props.motion) && !isEmpty(this.props.motion.referrals)) {
+
+            let referrals = null;
+
+            if (this.props.motion.referrals.length > 1) {
+                let referralItems = [];
+                each(this.props.motion.referrals, (item) => {
+                    referralItems.push(<li>{item.name}</li>);
+                });
+                referrals = (<ul>{referralItems}</ul>);
+            } else {
+                referrals = this.props.motion.referrals[0].name;
+            }
+            return (
+                <tr>
+                    <th>Überweisungen</th>
+                    <td>
+                        {referrals}
+                    </td>
+                </tr>
+            );
+        }
+        return null;
     }
 }
 

@@ -6,10 +6,12 @@ export function filtersReducer(state={}, action) {
     switch (action.type) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
             return Object.assign({}, state, {
+                body: getBody(action, state),
                 convention: conventionReducer(state.convention, action),
                 section: sectionReducer(state.section, action),
                 submitters: submittersReducer(state.submitters, action),
-                status: statusReducer(state.status, action)
+                status: statusReducer(state.status, action),
+                referred: referredReducer(state.referred, action)
             });
         case RESET_FILTERS + '_SUCCEEDED':
             return Object.assign({}, DEFAULT_FILTERS);
@@ -19,7 +21,15 @@ export function filtersReducer(state={}, action) {
 }
 
 
-export function sectionReducer(state = {}, action) {
+function getBody(action, state) {
+    if (!action.payload || !action.payload.section || action.payload.section !== 'body') {
+        return state.body;
+    }
+    return action.payload.name;
+}
+
+
+export function sectionReducer(state={}, action) {
     switch (action.type) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
             const {section, name, value} = action.payload;
@@ -35,7 +45,7 @@ export function sectionReducer(state = {}, action) {
 }
 
 
-export function conventionReducer(state = {}, action) {
+export function conventionReducer(state={}, action) {
     switch (action.type) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
             const {section, name, value} = action.payload;
@@ -51,7 +61,7 @@ export function conventionReducer(state = {}, action) {
 }
 
 
-export function submittersReducer(state = {}, action) {
+export function submittersReducer(state={}, action) {
     switch (action.type) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
             const {section, name, value} = action.payload;
@@ -67,11 +77,27 @@ export function submittersReducer(state = {}, action) {
 }
 
 
-export function statusReducer(state = {}, action) {
+export function statusReducer(state={}, action) {
     switch (action.type) {
         case CHANGE_FILTER_VALUE + '_SUCCEEDED':
             const {section, name, value} = action.payload;
             if (section === 'status') {
+                const updatedValue = {};
+                updatedValue[name] = value;
+                return Object.assign({}, state, updatedValue);
+            }
+            return state;
+        default:
+            return state;
+    }
+}
+
+
+export function referredReducer(state={}, action) {
+    switch (action.type) {
+        case CHANGE_FILTER_VALUE + '_SUCCEEDED':
+            const {section, name, value} = action.payload;
+            if (section === 'referred') {
                 const updatedValue = {};
                 updatedValue[name] = value;
                 return Object.assign({}, state, updatedValue);

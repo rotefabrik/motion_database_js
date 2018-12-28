@@ -1,4 +1,6 @@
 import React from 'react';
+import {Col, Row} from "react-bootstrap";
+import i18next from "i18next";
 
 if (process.env.BROWSER) {
     require('./SearchBar.scss');
@@ -20,7 +22,7 @@ export default class SearchBar extends React.Component {
                                 type="text"
                                 name="search"
                                 onChange={this.onChange.bind(this)}
-                                placeholder="Suchbegriff hier hinein!!!" />
+                                placeholder={i18next.t('search-prompt')} />
                         </td>
                         <td className="md-search-bar-control">
                         </td>

@@ -1,10 +1,13 @@
+@import '../../../shared/styles/colors';
+
+
 .md-motion-header {
   margin-bottom: 8px;
   margin-top: 8px;
 }
 
 .md-motion-title {
-  border-bottom: 1px solid #CAD8D1;
+  border-bottom: 1px solid $color-neutral;
   color: #53504B;
   margin-bottom: 12px;
   padding-bottom: 12px;
@@ -16,8 +19,35 @@
 }
 
 .md-motion-meta {
-  border-bottom: 1px solid #CAD8D1;
+  border-bottom: 1px solid $color-neutral;
   color: #53504B;
   margin-bottom: 12px;
   padding-bottom: 12px;
+
+  th {
+    padding-right: 1em;
+
+    &.md-status {
+
+      &:after {
+        content: "⏺";
+      }
+
+      &.not_voted:after {
+        color: $color-not-voted;
+      }
+      &.accepted:after {
+        color: $color-accepted;
+      }
+      &.referred:after {
+        color: $color-referred;
+      }
+      &.dismissed:after {
+        color: $color-dismissed;
+      }
+      &.rejected:after {
+        color: $color-rejected;
+      }
+    }
+  }
 }
