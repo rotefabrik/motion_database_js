@@ -59,7 +59,12 @@ class MotionTitle extends React.Component {
 
 class MotionMeta extends React.Component {
     render() {
+        if (isEmpty(this.props.motion)) {
+            return null;
+        }
+
         const {motion} = this.props;
+
         const {convention, section, status} = motion;
 
         const conventionLabel = convention && convention.label ? convention.label : 'unbekannt';
@@ -68,6 +73,7 @@ class MotionMeta extends React.Component {
         const submitters = this.buildSubmitters();
 
         const statusKlass = this.buildStatusKlass(status);
+        const statusIndicatorKlass = this.buildStatusIndicatorKlass(status);
 
         const referrals = this.buildReferrals();
 
@@ -89,7 +95,7 @@ class MotionMeta extends React.Component {
                                 <td>{submitters}</td>
                             </tr>
                             <tr>
-                                <th className={statusKlass}>Status</th>
+                                <th className={statusKlass}>Status<span className={statusIndicatorKlass}>⏺</span></th>
                                 <td>{i18next.t(status)}</td>
                             </tr>
                             {referrals}
@@ -113,6 +119,12 @@ class MotionMeta extends React.Component {
 
     buildStatusKlass(status) {
         const klassOptions = {'md-status': true};
+        klassOptions[status] = true;
+        return classNames(klassOptions);
+    }
+
+    buildStatusIndicatorKlass(status) {
+        const klassOptions = {'md-status-indicator': true};
         klassOptions[status] = true;
         return classNames(klassOptions);
     }
@@ -150,7 +162,7 @@ class MotionBody extends React.Component {
         const {motion} = this.props;
         return (
             <MotionSection>
-                <div dangerouslySetInnerHTML={{__html:motion.body}} />
+                <div className="md-motion-body" dangerouslySetInnerHTML={{__html:motion.body}} />
             </MotionSection>
         );
     }

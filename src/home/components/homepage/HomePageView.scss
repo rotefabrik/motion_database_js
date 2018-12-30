@@ -1,4 +1,23 @@
+.md-filter-list {
+  h2 {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+  }
+}
+
 .md-filter-result-toggle {
-  margin-bottom: 1em;
+  margin-bottom: .5em;
   text-align: center;
+
+  .md-divider {
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+}
+
+.md-motion-filter-form {
+  table {
+    width: 100%;
+  }
 }

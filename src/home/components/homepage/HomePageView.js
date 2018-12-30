@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, {each, isEmpty} from 'lodash';
 
 import React from 'react';
 import {connect} from "react-redux";
@@ -21,6 +21,48 @@ if (process.env.BROWSER) {
 
 const DEFAULT_START_PAGE = 1;
 const DEFAULT_PAGE_ITEMS = 20;
+
+
+class FilterList extends React.Component {
+    render() {
+        const activeFilters = this.buildActiveFilters();
+        if (!activeFilters) {
+            return null;
+        }
+        return (
+            <div className="md-filter-list">
+                <h2>Ergebnisse werden gefiltert nach:</h2>
+                <ul className="md-filter-list-content">
+                    {activeFilters}
+                </ul>
+            </div>
+        );
+    }
+
+    buildActiveFilters() {
+        if (isEmpty(this.props.filters)) {
+            return []
+        }
+
+        const activeFilters = [];
+        each(this.props.filters, (filters, sectionName) => {
+            if (sectionName !== 'body') {
+                each(filters, (value, key) => {
+                    if (value === true) {
+                        let activeFilter = (
+                            <li className="md-filter-item active">
+                                <strong>{i18next.t(sectionName)}: </strong>
+                                <span>{i18next.t(key)}</span>
+                            </li>
+                        );
+                        activeFilters.push(activeFilter);
+                    }
+                });
+            }
+        });
+        return activeFilters;
+    }
+}
 
 
 class FilterResultToggle extends React.Component {
@@ -140,6 +182,12 @@ class HomePageView extends React.Component {
                             <SearchBar onChange={this.onSearchChange.bind(this)} />
                         </Col>
                         <Col xs={12} md={1} lg={5} />
+                    </Row>
+
+                    <Row>
+                        <Col mdHidden={true} lgHidden={true} xs={12}>
+                            <FilterList filters={this.props.filters} />
+                        </Col>
                     </Row>
 
                     <Row>

@@ -23,7 +23,7 @@ i18n.use(LanguageDetector).init({
                 "dismissed": "Erledigung",
                 "referred": "Überweisung",
 
-                "disclaimer-text": "Diese Webseite ist kein offizielles Angebot der SPD-Berlin, dient nur zu Testzwecken und erhebt keinen Anspruch auf Richtigkeit oder Vollständigkeit der dargestellten Daten.",
+                "disclaimer-text": "Diese Webseite ist kein offizielles Angebot der SPD Berlin, dient nur zu Testzwecken und erhebt keinen Anspruch auf Richtigkeit oder Vollständigkeit der dargestellten Daten.",
 
                 "search-prompt": "Antragstexte durchsuchen",
 
